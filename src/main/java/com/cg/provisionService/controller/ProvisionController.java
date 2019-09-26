@@ -68,8 +68,10 @@ public class ProvisionController {
                if(con!=null) {
             	   Span span = tracer.buildSpan("Succesfully added a provision entry").start();
      			  span.finish();
+		       Span span2 = tracer.buildSpan("Making a call to Contable microservice").start();
 			      String msg = client.message(c.getTimestamp(),c.getCodigo_sap_expediente());
-			      Span span1 = tracer.buildSpan("Getting msg from contable microservice: "+msg).start();
+		       span2.finish();
+			      Span span1 = tracer.buildSpan("Received the msg from contable microservice: "+msg).start();
      			  span1.finish();
 			    return new ResponseEntity<>(pro, HttpStatus.OK);
 		 }
